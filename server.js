@@ -11,6 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
+// middleware for js and css file paths
+app.use(express.static('public'));
+
 function filterByQuery(query, animalsArray) {
   let personalityTraitsArray = [];
   // Note that we save the animalsArray as filteredResults here:
@@ -128,6 +131,34 @@ app.post('/api/animals', (req, res) => {
     const animal = createNewAnimal(req.body, animals);
     res.json(animal);
   }
+});
+
+// route to generate index.html from server on load
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+/* We can assume that a route that has the term api 
+in it will deal in transference of JSON data, whereas a more 
+normal-looking endpoint such as /animals should serve an HTML page. 
+Express.js isn't opinionated about how routes should be named and organized, 
+so that's a system developers must create. The naming patterns we've used so 
+far in this project closely follow what you'd typically see in a professional setting. */
+
+// route to generate animals.html from server on load
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+// route to generate zookeeper.html from server on load
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+/* The * will act as a wildcard, meaning any route that wasn't previously defined 
+will fall under this request and will receive the homepage as the response. 
+Thus, requests for /about or /contact or /membership will essentially be the same now. */
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 app.listen(PORT, () => {
