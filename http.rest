@@ -1,0 +1,23 @@
+GET http://localhost:3001/api/animals
+
+###
+
+GET http://localhost:3001/api/animals?&personalityTraits=hungry
+
+###
+
+GET http://localhost:3001/api/animals/5
+
+###
+
+POST http://localhost:3001/api/animals/
+Content-Type: application/json
+
+{
+    "name": "Nizzy",
+    "species": "lion",
+    "diet": "carnivore",
+    "personalityTraits": ["hungry"]
+}
+
+###
