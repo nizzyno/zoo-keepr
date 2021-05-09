@@ -14,8 +14,8 @@ POST http://localhost:3001/api/animals/
 Content-Type: application/json
 
 {
-    "name": "Nizzy",
-    "species": "lion",
+    "name": "Leo",
+    "species": "leopard",
     "diet": "carnivore",
     "personalityTraits": ["hungry"]
 }
